@@ -2,11 +2,16 @@ package vip.bestsvip.order.entity;
 
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
+import vip.bestsvip.api.dto.StockDto;
 import vip.bestsvip.api.dto.UserDto;
 
 
@@ -15,12 +20,21 @@ import vip.bestsvip.api.dto.UserDto;
 @Table(name = "orders")
 public class Orders {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long price;
     private String name;
-    private Integer num;
-    private long userId;
+
+    @JsonIgnore
+    private Long stockId;
+    private Long amount;
+
+    @JsonIgnore
+    
+    private Long userId;
 
     @Transient
-    private UserDto user;
+    private UserDto userDto;
+
+    @Transient
+    private StockDto stockDto;
 }

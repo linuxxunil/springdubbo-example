@@ -6,8 +6,8 @@ spring:
   # Database 
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/cloud_user?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Taipei
-    username: yesee
-    password: yesee
+    username: root
+    password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
     druid:
       initial-size: 5 #连接池初始化大小
@@ -32,5 +32,21 @@ dubbo:
   protocol:
     name: dubbo
     port: -1
+    serialization: kryo
   registry:
-    address: zookeeper://127.0.0.1:2181
+    host: 127.0.0.1:2181
+    address: zookeeper://${dubbo.registry.host}
+
+#====================================Seata Config===============================================
+# Ref : https://github.com/seata/seata/blob/master/script/client/spring/application.yml
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  tx-service-group: default_tx_group
+  service:
+    vgroup-mapping:
+      default_tx_group: default
+    grouplist:
+      default: 127.0.0.1:8091
+    enable-degrade: false
+    disable-global-transaction: false

@@ -13,6 +13,7 @@
 		<module>api-interfaces</module>
 		<module>order-service</module>
 		<module>user-service</module>
+		<module>stock-service</module>
 	</modules>
 
 	<parent>
@@ -29,12 +30,17 @@
 		<java.version>1.8</java.version>
 		<skipTests>true</skipTests>
 		<mysql-connector.version>8.0.33</mysql-connector.version>
-		<dubbo-version>3.2.0</dubbo-version>
+		<dubbo.version>3.2.0</dubbo.version>
+		<dubbo-kyro.version>1.0.1</dubbo-kyro.version>
+		<kyro.version>5.4.0</kyro.version>
+		<kryo-serializers.version>0.45</kryo-serializers.version>
 		<commons-pool2.version>2.11.1</commons-pool2.version>
 		<druid.version>1.1.23</druid.version>
 		<order-service.version>0.0.1-SNAPSHOT</order-service.version>
 		<user-service.version>0.0.1-SNAPSHOT</user-service.version>
-		<common-api.version>0.0.1-SNAPSHOT</common-api.version>
+		<stock-service.version>0.0.1-SNAPSHOT</stock-service.version>
+		<api-interfaces.version>0.0.1-SNAPSHOT</api-interfaces.version>
+		<seata.version>1.7.1</seata.version>
 	</properties>
 
 	<dependencies>
@@ -71,28 +77,48 @@
 		<dependency>
 			<groupId>org.apache.dubbo</groupId>
 			<artifactId>dubbo-spring-boot-starter</artifactId>
-			<version>${dubbo-version}</version>
+			<version>${dubbo.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.dubbo</groupId>
 			<artifactId>dubbo-registry-zookeeper</artifactId>
-			<version>${dubbo-version}</version>
+			<version>${dubbo.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.dubbo</groupId>
 			<artifactId>dubbo-remoting-zookeeper-curator5</artifactId>
-			<version>${dubbo-version}</version>
+			<version>${dubbo.version}</version>
 		</dependency>		
+		<dependency>
+			<groupId>org.apache.dubbo.extensions</groupId>
+			<artifactId>dubbo-serialization-kryo</artifactId>
+			<version>${dubbo-kyro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.esotericsoftware</groupId>
+			<artifactId>kryo</artifactId>
+			<version>${kyro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>de.javakaffee</groupId>
+			<artifactId>kryo-serializers</artifactId>
+			<version>${kryo-serializers.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.seata</groupId>
+			<artifactId>seata-spring-boot-starter</artifactId>
+			<version>${seata.version}</version>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
 		<dependencies>
 			
-			<!-- common-api -->
+			<!-- api-interfaces -->
 			<dependency>
 				<groupId>vip.bestsvip</groupId>
-				<artifactId>common-api</artifactId>
-				<version>${common-api.version}</version> 
+				<artifactId>api-interfaces</artifactId>
+				<version>${api-interfaces.version}</version> 
 			</dependency>
 			<!-- order-service -->
 			<dependency>
@@ -105,6 +131,12 @@
 				<groupId>vip.bestsvip</groupId>
 				<artifactId>user-service</artifactId>
 				<version>${user-service.version}</version>
+			</dependency>
+			<!-- stock-service -->
+			<dependency>
+				<groupId>vip.bestsvip</groupId>
+				<artifactId>stock-service</artifactId>
+				<version>${stock-service.version}</version>
 			</dependency>
 			<!-- Mysql 數據庫驅動 -->
 			<dependency>
